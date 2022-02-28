@@ -14,7 +14,8 @@ const options = {
 }
 const connection = mongoose.connect(process.env.MONGO_DB_HOST, options).then(
     app.listen('3000', ()=>{
-        console.log('server started...lol');
+        console.log('server is attempting to start...')
+        console.log('server started');
     })
 );
 module.exports = {app, express, router, mongoose, connection};
