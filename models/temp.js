@@ -88,7 +88,7 @@ var productsCollection = {
      phone:9767582124,
      address:'silicon valley',
      time:05/10/2022,
-     price:164.9,
+     cartTotal:164.9,
      cartItems :[
        {
           productId:'abc123',

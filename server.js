@@ -11,10 +11,12 @@ const {OAuth2Client} = require('google-auth-library');
 const { response } = require('express');
 
 //ROUTEs ---------------
+const updateUserDetails = require('./routes/updateUserDetails');
 const getCartItems = require('./routes/getCartItems');
 const saveToCart = require('./routes/saveToCart');
 const deleteFromCart = require('./routes/deleteFromCart');
 const getLoggedInUserDetails = require('./routes/getLoggedInUserDetails');
+const saveCartItemsToAdmin = require('./routes/saveOrderToAdmin');
 
 // const router = express.Router();
 // const app = express();
@@ -102,6 +104,7 @@ router.route('/register/').post(async (req, res)=>{
        await userModel.create({
         email : req.body.email,
         password : req.body.password
+        
        }).then(response=>{
         const token = jwt.sign({
            email:req.body.email
@@ -178,7 +181,9 @@ router.route('/register/').post(async (req, res)=>{
 
 
   ////////////////////////////////////////////////////////////------------------------ 
-   router.use('/api/',getLoggedInUserDetails);
+   router.use('/api/', updateUserDetails);
+   router.use('/api/', getLoggedInUserDetails);
+   router.use('/api/', saveCartItemsToAdmin);
    router.use('/api/', deleteFromCart);
    router.use('/api/', getCartItems);
    router.use('/api/', saveToCart);
