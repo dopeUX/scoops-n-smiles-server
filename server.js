@@ -3,6 +3,7 @@ require('dotenv').config({path:'.env'});
 const {app, express, router}= require('./connection');
 const userModel = require('./models/user.model.js');
 const iceItemModel = require('./models/iceitem.model.js');
+const cartModel = require('./models/cart.model')
 const productCategoryModel = require('./models/productCategory.model.js');
 const path = require('path');
 const jwt = require('jsonwebtoken');
@@ -109,9 +110,15 @@ router.route('/register/').post(async (req, res)=>{
         const token = jwt.sign({
            email:req.body.email
         },process.env.JWT_SECRET_KEY); 
-
-        console.log({thisisuser:req.body.email});
-        return res.json({status:'user created', token:token});
+        
+        cartModel.create({
+          email:req.body.email,
+          cartItems:[]
+        }).then(resp=>{
+          console.log({thisisuser:req.body.email})
+          return res.json({status:'user created', token:token});
+        });
+        
        });
      }catch(err){
         return res.json({status:'error creating user'});
