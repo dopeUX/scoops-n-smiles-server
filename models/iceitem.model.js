@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const iceItemSchema = new mongoose.Schema({
     iceName:{type:String, required:true, unique:true},
     category:{type:String,required:true},
-    price:{type:Number, required:true}
+    price:{type:Number, required:true},
+    color:{type:String, required:true}
 },)
 
 const iceItemModel = mongoose.model('product',iceItemSchema);
