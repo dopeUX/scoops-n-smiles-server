@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const {OAuth2Client} = require('google-auth-library');
 const { response } = require('express');
+const bcrypt = require('bcryptjs');
 
 //ROUTEs ---------------
 const updateUserDetails = require('./routes/updateUserDetails');
@@ -102,10 +103,11 @@ router.route('/retrieve-products/').get(async(req, res)=>{
 /////// AUTHENTICATION ROUTES -----------------------------------------
 //Register api
 router.route('/register/').post(async (req, res)=>{
+   const hashedPass = await bcrypt.hash(req.body.password, 10);
     try{
        await userModel.create({
         email : req.body.email,
-        password : req.body.password
+        password : hashedPass
         
        }).then(response=>{
         const token = jwt.sign({
@@ -130,16 +132,22 @@ router.route('/register/').post(async (req, res)=>{
 //Login api
    router.route('/login/').post(async (req, res)=>{
 // console.log(req.body);
+       
        const user = await userModel.findOne({
-        email : req.body.email,
-        password : req.body.password
+         email : req.body.email,
        })
        if(user){
-           const token = jwt.sign({
+        const isPassValid = await bcrypt.compare(req.body.password, user.password);
+         if(isPassValid){
+            const token = jwt.sign({
              email:user.email
            }, process.env.JWT_SECRET_KEY);
-          console.log('user exists TOKEN:'+token);
-          return res.json({token:token, user:true});
+            console.log('user exists TOKEN:'+token);
+            return res.json({token:token, user:true});
+          }
+          else{
+            return res.json({status:'error logging in user'})
+          }
        }
        else{
            return res.json({user:false});
