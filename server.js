@@ -55,7 +55,8 @@ router.route('/upload/').put(async(req,res)=>{
    await iceItemModel.create({
       iceName: req.body.iceName,
       category: req.body.category,
-      price:req.body.price
+      price:req.body.price,
+      color:req.body.color
    }).then(response=>{
      iceNameCustom = req.body.iceName
      console.log('ice item saved');
