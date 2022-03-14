@@ -13,6 +13,7 @@ const { response } = require('express');
 const bcrypt = require('bcryptjs');
 
 //ROUTEs ---------------
+const loginUser = require('./routes/loginUser');
 const updateUserDetails = require('./routes/updateUserDetails');
 const getCartItems = require('./routes/getCartItems');
 const saveToCart = require('./routes/saveToCart');
@@ -93,7 +94,8 @@ router.route('/retrieve-categories/').get(async(req, res)=>{
   
 });
 router.route('/retrieve-products/').get(async(req, res)=>{
-  const category = req.headers['category'];
+//  const category = req.headers['category'];
+ let category = "";
   // const items = await iceItemModel.find({category:category});
   const items = await iceItemModel.find();
 
@@ -130,30 +132,6 @@ router.route('/register/').post(async (req, res)=>{
   });
 
 //Login api
-   router.route('/login/').post(async (req, res)=>{
-// console.log(req.body);
-       
-       const user = await userModel.findOne({
-         email : req.body.email,
-       })
-       if(user){
-        const isPassValid = await bcrypt.compare(req.body.password, user.password);
-         if(isPassValid){
-            const token = jwt.sign({
-             email:user.email
-           }, process.env.JWT_SECRET_KEY);
-            console.log('user exists TOKEN:'+token);
-            return res.json({token:token, user:true});
-          }
-          else{
-            return res.json({status:'error logging in user'})
-          }
-       }
-       else{
-           return res.json({user:false});
-       }
-    
-     });
 
       router.route('/auth-check').get(async (req, res)=>{
     // console.log(req.body);
@@ -197,6 +175,7 @@ router.route('/register/').post(async (req, res)=>{
 
 
   ////////////////////////////////////////////////////////////------------------------ 
+   router.use('/api/', loginUser);
    router.use('/api/', updateUserDetails);
    router.use('/api/', getLoggedInUserDetails);
    router.use('/api/', saveCartItemsToAdmin);

@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const productCategory = new mongoose.Schema({
-   category : {type:String, required:true}
+   category : {type:String, required:true, unique:true}
 });
 
 const productCategoryModel = mongoose.model('productCategory',productCategory);
