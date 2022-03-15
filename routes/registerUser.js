@@ -10,8 +10,11 @@ router.route('/register/').post(async (req, res)=>{
      try{
         await userModel.create({
          email : req.body.email,
-         password : hashedPass
-         
+         password : hashedPass,
+         firstName:'',
+         lastName:'',
+         phone:0,
+         address:''         
         }).then(response=>{
          const token = jwt.sign({
             email:req.body.email
