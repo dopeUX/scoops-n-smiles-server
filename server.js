@@ -34,26 +34,9 @@ const saveCartItemsToAdmin = require('./routes/saveOrderToAdmin');
 // .use(express.json());
 // app.use(cors());
 
-
-
-
-
  router.get('/',(req, res)=>{
     res.send('hello world');
 })
-
-
-
-
-/////// AUTHENTICATION ROUTES -----------------------------------------
-//Register api
-
-
-//Login api
-
-   
-   
-
 
   ////////////////////////////////////////////////////////////------------------------ 
    router.use('/api/',authCheck);
