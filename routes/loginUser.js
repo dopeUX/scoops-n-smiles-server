@@ -2,6 +2,7 @@ require('dotenv').config({ path: '.env' });
 const userModel = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const {router} = require('../connection');
+const jwt = require('jsonwebtoken');
 
 router.route('/login/').post(async (req, res) => {
   // console.log(req.body);
