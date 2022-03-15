@@ -12,14 +12,14 @@ const multer = require('multer');
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
 
-//ROUTEs ---------------
+//ROUTEs ---------------dwdw
 const loginUser = require('./routes/loginUser');
 const registerUser = require('./routes/registerUser');
 const googleLogin = require('./routes/googleLogin');
 const authCheck = require('./routes/authCheck');
 const retrieveCategories = require('./routes/retrieveCategories');
+//const myModule = require('./routes/saveIceItem');
 const saveIceItem = require('./routes/saveIceItem');
-const saveIceImage = require('./routes/saveIceImage');
 const updateUserDetails = require('./routes/updateUserDetails');
 const retrieveProducts = require('./routes/retrieveProducts');
 const saveCategory = require('./routes/saveCategory');
@@ -60,8 +60,8 @@ const saveCartItemsToAdmin = require('./routes/saveOrderToAdmin');
    router.use('/api/', loginUser);
    router.use('/api/', registerUser);
    router.use('/api/',googleLogin);
+  // router.use('/api/', myModule.saveIceItem);
    router.use('/api/', saveIceItem);
-   router.use('/api/', saveIceImage);
    router.use('/api/', retrieveCategories);
    router.use('/api/', retrieveProducts);
    router.use('/api/', saveCategory);

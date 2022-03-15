@@ -1,4 +1,5 @@
 require('dotenv').config({path:'.env'});
+const {router} = require('../connection');
 const jwt = require('jsonwebtoken');
 
 router.route('/auth-check').get(async (req, res)=>{
