@@ -7,6 +7,10 @@ const jwt = require('jsonwebtoken');
 
 router.route('/register/').post(async (req, res)=>{
     const hashedPass = await bcrypt.hash(req.body.password, 10);
+    const user = await userModel.findOne({
+      email: req.body.email,
+    });
+    if(!user){
      try{
         await userModel.create({
          email : req.body.email,
@@ -32,6 +36,9 @@ router.route('/register/').post(async (req, res)=>{
       }catch(err){
          return res.json({status:'error creating user'});
       }
+    }else{
+       return res.json({status:'email already exists'});
+    }
      
    });
 
