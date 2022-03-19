@@ -16,7 +16,7 @@ router.route('/login/').post(async (req, res) => {
       const token = jwt.sign({
         email: user.email
       }, process.env.JWT_SECRET_KEY);
-      console.log('user exists TOKEN:' + token);
+     // console.log('user exists TOKEN:' + token);
       return res.json({ token: token, user: true });
     }
     else {

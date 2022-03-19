@@ -15,7 +15,7 @@ router.route('/save-item/').post(async(req, res)=>{
        color:req.body.color
     }).then(response=>{
       iceNameCustom = req.body.iceName
-      console.log('ice item saved', iceNameCustom);
+     // console.log('ice item saved', iceNameCustom);
       res.json({resp:'ice item saved', status:true, name:req.body.iceName});
     })
     }catch(err){
@@ -30,8 +30,6 @@ const storage = multer.diskStorage({
    },
    filename:(req, file,callback)=>{
      console.log(file);
-    //  console.log(req)
-    //  console.log(process.env.JWT_SECRET_KEY);
      callback(null, iceNameCustom+path.extname(file.originalname));
    }
 });

@@ -28,7 +28,7 @@ router.route('/register/').post(async (req, res)=>{
            email:req.body.email,
            cartItems:[]
          }).then(resp=>{
-           console.log({thisisuser:req.body.email})
+         //  console.log({thisisuser:req.body.email})
            return res.json({status:'user created', token:token});
          });
          

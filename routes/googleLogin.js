@@ -8,9 +8,8 @@ router.route('/google-login').post((req,res)=>{
     const tokenId = req.body.token; 
     client.verifyIdToken({idToken:tokenId, audience:process.env.REACT_APP_GOOGLE_CLOUD_API})
     .then(response=>{
-      // console.log(response.payload);
-      // res.json({theResponse:response.payload.email_verified});
-      const {email_verified,name, email} = response.getPayload();
+      
+      const {email_verified, email} = response.getPayload();
       if(email_verified){
         userModel.findOne({email}).exec((err,user)=>{
           if(err){
