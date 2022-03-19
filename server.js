@@ -1,10 +1,9 @@
 require('dotenv').config({path:'.env'});
-//const express = require('express');
 const {app, router}= require('./connection');
 
 const multer = require('multer');
 
-//ROUTEs ---------------dwdw
+//ROUTEs ---------------
 const loginUser = require('./routes/loginUser');
 const registerUser = require('./routes/registerUser');
 const googleLogin = require('./routes/googleLogin');
